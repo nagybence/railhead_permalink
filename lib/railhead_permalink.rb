@@ -12,7 +12,7 @@ module RailheadPermalink
 
   module ClassMethods
     def auto_permalink(field, options = {})
-      include SimplePermalink::InstanceMethods
+      include RailheadPermalink::InstanceMethods
 
       write_inheritable_attribute(:permalink_options, {
         :field => field,
@@ -23,8 +23,7 @@ module RailheadPermalink
     def find_with_permalink(*args)
       key = args.first
       if key.is_a?(String)
-        options = {:conditions => ['permalink = ?', key]}
-        with_scope :find => options { find_without_permalink :first } or find_without_permalink(*args)
+        find_without_permalink(:first, :conditions => ['permalink = ?', key]) || find_without_permalink(*args)
       else
         find_without_permalink(*args)
       end
@@ -40,6 +39,10 @@ module RailheadPermalink
         permalink = key + counter
       end
       self[:permalink] = permalink
+    end
+
+    def to_param
+      permalink
     end
   end
 end
