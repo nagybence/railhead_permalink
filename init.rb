@@ -1,0 +1,1 @@
+require 'railhead_permalink'
