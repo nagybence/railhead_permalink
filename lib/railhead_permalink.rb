@@ -2,23 +2,23 @@ module RailheadPermalink
   def self.included(base)
     base.class_eval do
       extend ClassMethods
-      class << self
-        alias_method_chain :find, :permalink
-      end
-      class_inheritable_reader :permalink_options
-      before_save :create_permalink
     end
   end
 
   module ClassMethods
     def auto_permalink(field, options = {})
       include RailheadPermalink::InstanceMethods
+      class << self
+        alias_method_chain :find, :permalink
+      end
+      class_inheritable_reader :permalink_options
 
       write_inheritable_attribute(:permalink_options, {
         :field => field,
         :reserved_names => (options[:reserved_names] || []).concat(ActionController::Base.resources_path_names.values)
       })
 
+      before_save :create_permalink
       validates_presence_of field
     end
 
