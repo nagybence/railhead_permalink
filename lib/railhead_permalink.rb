@@ -37,12 +37,14 @@ module RailheadPermalink
     def create_permalink
       if self.permalink.nil? or not permalink_options[:keep_existing]
         key, counter = self[permalink_options[:field]].parameterize.to_s, '-1'
-        permalink = key
-        while permalink_options[:reserved_names].include?(permalink) or self.class.exists?(:permalink => permalink)
-          counter.succ!
-          permalink = key + counter
+        unless self.permalink == key
+          permalink = key
+          while permalink_options[:reserved_names].include?(permalink) or self.class.exists?(:permalink => permalink)
+            counter.succ!
+            permalink = key + counter
+          end
+          self[:permalink] = permalink
         end
-        self[:permalink] = permalink
       end
     end
 
