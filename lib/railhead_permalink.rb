@@ -15,6 +15,7 @@ module RailheadPermalink
 
       write_inheritable_attribute(:permalink_options, {
         :field => field,
+        :keep_existing => (options[:keep_existing] || false),
         :reserved_names => (options[:reserved_names] || []).concat(ActionController::Base.resources_path_names.values)
       })
 
@@ -34,17 +35,19 @@ module RailheadPermalink
 
   module InstanceMethods
     def create_permalink
-      key, counter = self[permalink_options[:field]].parameterize.to_s, '-1'
-      permalink = key
-      while permalink_options[:reserved_names].include?(permalink) or self.class.exists?(:permalink => permalink)
-        counter.succ!
-        permalink = key + counter
+      if self.permalink.nil? or not permalink_options[:keep_existing]
+        key, counter = self[permalink_options[:field]].parameterize.to_s, '-1'
+        permalink = key
+        while permalink_options[:reserved_names].include?(permalink) or self.class.exists?(:permalink => permalink)
+          counter.succ!
+          permalink = key + counter
+        end
+        self[:permalink] = permalink
       end
-      self[:permalink] = permalink
     end
 
     def to_param
-      permalink
+      self.permalink
     end
   end
 end

@@ -26,6 +26,10 @@ You can setup reserved names too:
 
   auto_permalink :title, :reserved_names => %w(reserved names)
 
+You can keep already existing permalinks:
+
+  auto_permalink :title, :keep_existing => true
+
 == License
 
 Copyright (c) 2008-2009 Bence Nagy (nagybence@tipogral.hu), released under the MIT license.
