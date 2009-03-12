@@ -19,9 +19,8 @@ module RailheadPermalink
         :reserved_names => (options[:reserved_names] || []).concat(ActionController::Base.resources_path_names.values)
       })
 
-      before_validate :create_permalink
+      before_validation :create_permalink
       validates_presence_of field
-      validates_presence_of permalink
     end
 
     def find_with_permalink(*args)
