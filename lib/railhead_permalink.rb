@@ -19,9 +19,8 @@ module RailheadPermalink
         :reserved_names => (options[:reserved_names] || []).concat(ActionController::Base.resources_path_names.values)
       })
 
-      before_validation :create_permalink
+      before_save :create_permalink
       validates_presence_of field
-      validates_presence_of :permalink
     end
 
     def find_with_permalink(*args)
@@ -40,7 +39,7 @@ module RailheadPermalink
         key, counter = self[permalink_options[:field]].parameterize.to_s, '-1'
         unless self.permalink == key
           permalink = key
-          while permalink_options[:reserved_names].include?(permalink) or
+          while permalink_options[:reserved_names].include?(permalink) or permalink.blank? or
             (self.class.exists?(:permalink => permalink) and not self == self.class.find_without_permalink(:first, :conditions => {:permalink => permalink}))
               counter.succ!
               permalink = key + counter
