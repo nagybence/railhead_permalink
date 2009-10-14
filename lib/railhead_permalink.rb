@@ -40,7 +40,7 @@ module RailheadPermalink
         unless self.permalink == key
           permalink = key
           while permalink_options[:reserved_names].include?(permalink) or permalink.blank? or
-            (self.class.exists?(:permalink => permalink) and not self == self.class.find_without_permalink(:first, :conditions => {:permalink => permalink}))
+            (object = self.class.find_without_permalink(:first, :conditions => {:permalink => permalink}) and object != self)
               counter.succ!
               permalink = key + counter
           end
@@ -57,3 +57,4 @@ end
 
 
 ActiveRecord::Base.send :include, RailheadPermalink
+
