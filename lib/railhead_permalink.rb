@@ -36,15 +36,15 @@ module RailheadPermalink
   module InstanceMethods
     def create_permalink
       if self.permalink.nil? or not permalink_options[:keep_existing]
-        key, counter = self[permalink_options[:field]].parameterize.to_s, '-1'
+        key = self[permalink_options[:field]].parameterize.to_s
         unless self.permalink == key
-          permalink = key
+          permalink, counter = key, '-1'
           while permalink_options[:reserved_names].include?(permalink) or permalink.blank? or
             (object = self.class.find_without_permalink(:first, :conditions => {:permalink => permalink}) and object != self)
               counter.succ!
               permalink = key + counter
           end
-          self[:permalink] = permalink
+          self.permalink = permalink
         end
       end
     end
