@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name     = "railhead_permalink"
-  s.version  = "0.1.13"
-  s.date     = "2010-03-06"
+  s.version  = "0.1.14"
+  s.date     = "2010-06-07"
   s.summary  = "RailheadPermalink is a Ruby on Rails plugin that automatically finds ActiveRecord objects with permalink."
   s.email    = "nagybence@tipogral.hu"
   s.homepage = "http://github.com/nagybence/railhead_permalink"
@@ -16,3 +16,4 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--main", "README.rdoc"]
   s.extra_rdoc_files = ["README.rdoc"]
 end
+
