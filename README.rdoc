@@ -6,7 +6,7 @@ RailheadPermalink is a Ruby on Rails plugin that automatically finds ActiveRecor
 
 Installation is available as gem (recommended):
 
-  config.gem 'nagybence-railhead_permalink', :lib => 'railhead_permalink', :source => 'http://gems.github.com'
+  config.gem 'railhead_permalink'
 
 Or as Rails plugin:
 
