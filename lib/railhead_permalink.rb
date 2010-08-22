@@ -1,4 +1,5 @@
 module RailheadPermalink
+
   def self.included(base)
     base.class_eval do
       extend ClassMethods
@@ -6,6 +7,7 @@ module RailheadPermalink
   end
 
   module ClassMethods
+
     def auto_permalink(field, options = {})
       include RailheadPermalink::InstanceMethods
       class << self
@@ -34,6 +36,7 @@ module RailheadPermalink
   end
 
   module InstanceMethods
+
     def create_permalink
       if self.permalink.nil? or (self.changed.include?(permalink_options[:field].to_s) and not permalink_options[:keep_existing])
         key = self[permalink_options[:field]].parameterize.to_s
