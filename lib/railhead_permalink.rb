@@ -16,12 +16,13 @@ module RailheadPermalink
       write_inheritable_attribute(:permalink_options, {
         :field => field,
         :keep_existing => (options[:keep_existing] || false),
-        :reserved_names => (options[:reserved_names] || []).concat(ActionController::Base.resources_path_names.values)
+        :reserved_names => (options[:reserved_names] || []).concat(ActionController::Base.resources_path_names.values),
+        :unique => (options[:unique] || false)
       })
 
       before_save :create_permalink
       validates_presence_of field
-      validates_uniqueness_of field, :case_sensitive => false, :if => "#{field}_changed?".to_sym
+      validates_uniqueness_of field, :case_sensitive => false, :if => "#{field}_changed?".to_sym if permalink_options[:unique]
     end
 
     def find_with_permalink(*args)
