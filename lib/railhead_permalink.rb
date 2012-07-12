@@ -11,14 +11,14 @@ module RailheadPermalink
       class << self
         alias_method_chain :find, :permalink
       end
-      class_inheritable_reader :permalink_options
+      class_attribute :permalink_options
 
-      write_inheritable_attribute(:permalink_options, {
+      self.permalink_options = {
         :field => field,
         :keep_existing => (options[:keep_existing] || false),
-        :reserved_names => (options[:reserved_names] || []).concat(ActionController::Base.resources_path_names.values),
+        :reserved_names => (options[:reserved_names] || []),
         :unique => (options[:unique] || false)
-      })
+      }
 
       before_save :create_permalink
       validates_presence_of field
@@ -49,6 +49,7 @@ module RailheadPermalink
           self.permalink = permalink
         end
       end
+      true
     end
 
     def to_param
@@ -59,4 +60,3 @@ end
 
 
 ActiveRecord::Base.send :include, RailheadPermalink
-

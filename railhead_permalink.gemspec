@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name     = "railhead_permalink"
-  s.version  = "0.1.17"
-  s.date     = "2011-10-12"
+  s.version  = "0.1.19"
+  s.date     = "2012-07-12"
   s.summary  = "RailheadPermalink is a Ruby on Rails plugin that automatically finds ActiveRecord objects with permalink."
   s.email    = "nagybence@tipogral.hu"
   s.homepage = "http://github.com/nagybence/railhead_permalink"
