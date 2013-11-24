@@ -28,7 +28,7 @@ module RailheadPermalink
     def find_with_permalink(*args)
       key = args.first
       if key.is_a?(String)
-        find_without_permalink(:first, :conditions => {:permalink => key}) || find_without_permalink(*args)
+        where(:permalink => key).first || find_without_permalink(*args)
       else
         find_without_permalink(*args)
       end
@@ -42,7 +42,7 @@ module RailheadPermalink
         unless self.permalink == key
           permalink, counter = key, '-1'
           while permalink_options[:reserved_names].include?(permalink) or permalink.blank? or
-            (object = self.class.find_without_permalink(:first, :conditions => {:permalink => permalink}) and object != self)
+            (object = self.class.where(:permalink => permalink).first and object != self)
               counter.succ!
               permalink = key + counter
           end
