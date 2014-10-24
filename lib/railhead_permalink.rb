@@ -1,11 +1,23 @@
+begin
+  require 'stringex_lite'
+rescue LoadError
+  class String
+    alias_method :to_url, :parameterize
+  end
+end
+
+
 module RailheadPermalink
+
   def self.included(base)
     base.class_eval do
       extend ClassMethods
     end
   end
 
+
   module ClassMethods
+
     def auto_permalink(field, options = {})
       include RailheadPermalink::InstanceMethods
       class << self
@@ -35,10 +47,12 @@ module RailheadPermalink
     end
   end
 
+
   module InstanceMethods
+
     def create_permalink
       if self.permalink.nil? or (self.changed.include?(permalink_options[:field].to_s) and not permalink_options[:keep_existing])
-        key = self[permalink_options[:field]].parameterize.to_s
+        key = self[permalink_options[:field]].to_url
         unless self.permalink == key
           permalink, counter = key, '-1'
           while permalink_options[:reserved_names].include?(permalink) or permalink.blank? or
