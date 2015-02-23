@@ -4,13 +4,9 @@ RailheadPermalink is a Ruby on Rails plugin that automatically finds ActiveRecor
 
 == Installation
 
-Installation is available as gem (recommended):
+Add to your Gemfile:
 
-  config.gem 'railhead_permalink'
-
-Or as Rails plugin:
-
-  $ ruby script/plugin install git://github.com/nagybence/railhead_permalink.git
+  gem 'railhead_permalink'
 
 == Usage
 
@@ -24,12 +20,12 @@ Setup permalink for your ActiceRecord object:
 
 You can setup reserved names too:
 
-  auto_permalink :title, :reserved_names => %w(reserved names)
+  auto_permalink :title, reserved_names: %w(reserved names)
 
 You can keep already existing permalinks:
 
-  auto_permalink :title, :keep_existing => true
+  auto_permalink :title, keep_existing: true
 
 == License
 
-Copyright (c) 2008-2009 Bence Nagy (nagybence@tipogral.hu), released under the MIT license.
+Copyright (c) 2008-2015 Bence Nagy (bence.nagy@gmail.com), released under the MIT license.
