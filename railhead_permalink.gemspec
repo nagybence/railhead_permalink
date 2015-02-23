@@ -12,6 +12,5 @@ Gem::Specification.new do |s|
                 "railhead_permalink.gemspec",
                 "lib/railhead_permalink.rb"]
   s.rdoc_options = ["--main", "README.rdoc"]
-  s.extra_rdoc_files = ["README.rdoc"]
   s.license = "MIT"
 end
